@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Component Scanning -->
+    <context:component-scan base-package="br.com.megatecnologiasi.maps"/>
+
+    <!-- Annotations -->
+    <mvc:annotation-driven conversion-service="idToElement"/>
+
+    <!-- MVC View Resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Static Resources Handler (CSS/JS/images...) -->
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
+
+    <!-- Conversion -->
+    <bean id="idToElement" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="br.com.megatecnologiasi.maps.converters.IdToElementConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Hibernate -->
+        <!-- Data Source -->
+        <bean id="orderDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+            <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+            <property name="jdbcUrl" value="jdbc:mysql://localhost/mega"/>
+            <property name="user" value="root"/>
+            <property name="password" value="root34"/>
+            <!-- Connection Pool properties -->
+            <property name="initialPoolSize" value="5"/>
+            <property name="minPoolSize" value="5"/>
+            <property name="maxPoolSize" value="20"/>
+            <property name="maxIdleTime" value="30000"/>
+        </bean>
+
+        <!-- SessionFactory -->
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+            <property name="dataSource" ref="orderDataSource"/>
+            <property name="packagesToScan" value="br.com.megatecnologiasi.maps.entities"/>
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+                </props>
+            </property>
+        </bean>
+
+        <!-- Transaction Manager -->
+        <bean id="elementTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
+
+        <!-- Enable @Transactional -->
+        <tx:annotation-driven transaction-manager="elementTransactionManager"/>
+</beans>
