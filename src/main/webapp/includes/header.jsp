@@ -10,10 +10,10 @@
             <a id="logo-container white-text" href="${pageContext.request.contextPath}/index.jsp" class="right brand-logo">Maps App</a>
             <ul class="left hide-on-med-and-down">
                 <li>
-                    <a href="${pageContext.request.contextPath}/static/map">Mapa</a>
+                    <a href="${pageContext.request.contextPath}/maps/map">Mapa</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/static/list">Elementos</a>
+                    <a href="${pageContext.request.contextPath}/maps/list">Elementos</a>
                 </li>
             </ul>
             <ul id="nav-mobile" class="sidenav">

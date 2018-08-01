@@ -17,47 +17,70 @@
 <body>
 <main>
     <jsp:include page="/includes/header.jsp"/>
+
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br>
+            <br>
+            <h1 class="header center blue-grey-text text-darken-3">Elementos</h1>
+            <div class="row center">
+                <p class="flow-text blue-grey-text text-darken-3 col s12">
+                    Lista de elementos cadastrados
+                </p>
+                <br>
+                <a href="${pageContext.request.contextPath}/maps/newElement" class="waves-effect btn-large deep-purple darken-3">Novo Elemento</a>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
     <div class="container">
-        <h1 class="blue-grey-text text-darken-3">
-            Elementos
-        </h1>
-
         <ul class="collection">
+            <c:forEach items="${elements}" var="element">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">${element.icon == null ? "place":element.icon}</i>
+                    <span class="tittle">${element.name}</span>
+                    <p>
+                        ${element.desc} <br>
+                    </p>
 
-
-
-            <li class="collection-item avatar">
-                <img src="images/yuna.jpg" alt="" class="circle">
-                <span class="title">Title</span>
-                <p>First Line <br>
-                    Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle">folder</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                    Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle green">insert_chart</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                    Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle red">play_arrow</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                    Second Line
-                </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-            </li>
+                    <div class="row">
+                        <c:forEach items="${element.coords}" var="coord">
+                            <div class="col s12 m4">
+                                <div class="card deep-purple darken-4">
+                                    <div class="card-content grey-text text-lighten-3">
+                                        <span class="card-tittle">Ponto</span>
+                                        <p>
+                                            Latitude: ${coord.lat} <br>
+                                            Longitude: ${coord.lng} <br>
+                                            ${coord.marker ? "Marker<br>":"<br>"}
+                                        </p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="${pageContext.request.contextPath}/maps/viewCoordinate?id=${coord.id}">
+                                            <i class="material-icons white-text">edit</i>
+                                        </a>
+                                        <a href="${pageContext.request.contextPath}/maps/deleteCoordinate?id=${coord.id}">
+                                            <i class="material-icons white-text">delete</i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <ul class="secondary-content">
+                        <a href="${pageContext.request.contextPath}/maps/viewElement?id=${element.id}">
+                            <i class="material-icons">edit</i>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/maps/deleteElement?id=${element.id}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/maps/newCoordinate?parentId=${element.id}">
+                            <i class="material-icons">add_circle</i>
+                        </a>
+                    </ul>
+                </li>
+            </c:forEach>
         </ul>
 
     </div>

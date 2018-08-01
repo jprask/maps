@@ -1,15 +1,15 @@
-DROP SCHEMA IF EXISTS MEGA;
+DROP SCHEMA IF EXISTS mega;
 
-CREATE SCHEMA IF NOT EXISTS MEGA;
+CREATE SCHEMA IF NOT EXISTS mega;
 
-USE MEGA;
+USE mega;
 
 DROP TABLE IF EXISTS map_elements;
 
 CREATE TABLE IF NOT EXISTS map_elements (
   id INT NOT NULL AUTO_INCREMENT,
   icon VARCHAR(50) NULL,
-  elmt_name VARCHAR(25) NULL,
+  elmt_name VARCHAR(25) NOT NULL,
   elmt_desc VARCHAR(100) NULL,
   
   PRIMARY KEY (id)
@@ -74,4 +74,4 @@ INSERT INTO coords (id, element_id, lat, lng, marker) VALUES (NULL, 8, @ufnlat, 
 #Traço Casa - Rockers
 INSERT INTO map_elements (id, icon, elmt_name, elmt_desc) VALUES (9, NULL, 'Casa-Rockers', 'Para fazer festa');
 INSERT INTO coords (id, element_id, lat, lng, marker) VALUES (NULL, 9, @casalat, @casalng, false);
-INSERT INTO coords (id, element_id, lat, lng, marker) VALUES (NULL, 9, @rocklat, @rocklat, false);
+INSERT INTO coords (id, element_id, lat, lng, marker) VALUES (NULL, 9, @rocklat, @rocklng, false);

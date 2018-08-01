@@ -35,7 +35,7 @@ public class TestController {
     public String viewElement(@RequestParam(value = "elmtId") int elmtId, Model model) {
         MapElement e = elementService.getElement(elmtId);
         model.addAttribute("element", e);
-        System.out.println("show: test-form-elmt");
+
         return "test/form-elmt";
     }
 

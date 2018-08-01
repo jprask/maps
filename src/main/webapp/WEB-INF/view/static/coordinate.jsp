@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+
 <html>
 <head>
     <!--Import Google Icon Font-->
@@ -21,10 +22,10 @@
         <div class="container">
             <br>
             <br>
-            <h1 class="header center blue-grey-text text-darken-3">${element.name == null ? "Novo Elemento":element.name}</h1>
+            <h1 class="header center blue-grey-text text-darken-3">Ponto</h1>
             <div class="row center">
                 <p class="flow-text blue-grey-text text-darken-3 col s12">
-                    Editar Elemento
+                    Editar ponto
                 </p>
                 <br>
             </div>
@@ -34,25 +35,40 @@
     </div>
 
     <div class="container">
-        <form:form action="saveElement" modelAttribute="element" method="POST">
-            <form:hidden id="hiddenId" path="id"/>
+
+        <form:form action="saveCoordinate" modelAttribute="coordinate" method="POST">
+            <form:hidden path="id"/>
 
             <div class="input-field">
-                <label class="active" for="icon">Icone</label>
-                <form:input id="icon" path="icon"/>
+                <label class="active" for="selectParent" >Elemento</label>
+                <br>
+                <br>
+                <form:select path="element" cssClass="browser-default" id="selectParent">
+                    <form:options items="${elements}" itemLabel="name" itemValue="id"/>
+                </form:select> <br/>
+            </div>
+
+
+            <div class="input-field">
+                <label class="active" for="latitude" >Latitude</label>
+                <form:input id="latitude" path="lat"/> <br/>
             </div>
 
             <div class="input-field">
-                <label class="active" for="name">Nome</label>
-                <form:input id="name" path="name"/>
+                <label class="active" for="longitude">Longitude</label>
+                <form:input id="longitude" path="lng"/> <br/>
             </div>
 
-            <div class="input-field">
-                <label class="active" for="desc">Descriçao</label>
-                <form:textarea id="desc" path="desc"/>
-            </div>
+            <p>
+                <label>
+                    <input type="checkbox" id="renderedBox" checked="checked" />
+                    <span>Marker</span>
+                </label>
+            </p>
+            <form:checkbox path="marker" id="hiddenBox" checked="checked"/>
             <br>
             <br>
+            <%--<input type="submit" value="Save" class="Save">--%>
             <div class="row center">
                 <button class="btn waves-effect deep-purple darken-3" type="submit" name="action">Salvar
                     <i class="material-icons right">send</i>
@@ -63,6 +79,13 @@
 
     <jsp:include page="/includes/footer.jsp"/>
 </main>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>--%>
+
+<script>
+    document.getElementById("selectParent").value = ${parentId};
+    document.getElementById("renderedBox").addEventListener("click", function() {
+       document.getElementById("hiddenBox").checked = document.getElementById("renderedBox").checked;
+    });
+</script>
+
 </body>
 </html>
