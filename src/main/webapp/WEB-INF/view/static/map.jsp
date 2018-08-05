@@ -1,7 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
@@ -10,72 +12,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Maps App</title>
-</head>
-<body>
-<main>
-    <jsp:include page="/includes/header.jsp"/>
 
-    <jsp:include page="/includes/footer.jsp"/>
-</main>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>--%>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="<c:url value="/assets/css/map.css" />">
 
 </head>
 <body>
+<jsp:include page="/includes/header.jsp"/>
 <div id="map"></div>
+<jsp:include page="/includes/footer.jsp"/>
+<script src="<c:url value="/assets/js/map.js"/>"></script>
 <script>
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
-    var map, infoWindow;
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 6
+        //LatLngBounds para ajustar o mapa aos pontos exibidos
+        var bounds = new google.maps.LatLngBounds();
+
+        //Criar o mapa
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat:0, lng:0}
         });
-        infoWindow = new google.maps.InfoWindow;
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+        var coordinates;
+        var elements = [];
 
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Location found.');
-                infoWindow.open(map);
-                map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-    }
+        <c:forEach items="${elements}" var="element">
+            coordinates = [];
+            <c:forEach items="${element.coords}" var="coordinate">
+                coordinates.push({
+                    latLng: new google.maps.LatLng(${coordinate.lat}, ${coordinate.lng}),
+                    marker: ${coordinate.marker}
+                });
+            </c:forEach>
+            elements.push(
+                addElement({
+                    name: '${element.name}',
+                    desc: '${element.desc}',
+                    iconTxt: '${element.icon}', //Validate not null...
+                    coordinates: coordinates
+                }, map)
+            );
+            for(let i = 0; i < coordinates.length; i++)
+                bounds.extend(coordinates[i].latLng);
+        </c:forEach>
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed.' :
-            'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
+        // bounds.extend(myLatLng);
+        map.fitBounds(bounds);
+        map.panToBounds(bounds);
     }
 </script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-dbim_aM1LkLTFr_KICfy7OxqJq1kh7I&callback=initMap">
 </script>
 </body>
 </html>

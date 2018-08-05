@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS coords;
 CREATE TABLE IF NOT EXISTS coords (
   id INT NOT NULL AUTO_INCREMENT,
   element_id INT NOT NULL,
-  lat DOUBLE NOT NULL,
+  lat DECIMAL(15, 13) NOT NULL,
   lng DOUBLE NOT NULL,
   marker BOOLEAN NOT NULL,
   
@@ -30,16 +30,16 @@ CREATE TABLE IF NOT EXISTS coords (
   ON DELETE CASCADE
 );
 
-SET @casalat = -29.687634;
-SET @casalng = -53.8129003;
-SET @rodolat =  -29.7014659;
-SET @rodolng = -53.7964918;
-SET @megalat = -29.6874375;
-SET @megalng = -53.8082031;
-SET @ufnlat = -29.6847598;
-SET @ufnlng = -53.8108021;
-SET @rocklat = -29.7093288;
-SET @rocklng = -53.8144805;
+SET @casalat = -29.700256; 
+SET @casalng = -53.801540;
+SET @rodolat = -29.701463;
+SET @rodolng = -53.796481;
+SET @megalat = -29.687307; 
+SET @megalng = -53.808192;
+SET @ufnlat = -29.684517; 
+SET @ufnlng = -53.810759;
+SET @rocklat = -29.709329;
+SET @rocklng = -53.814470;
 
 -- Markers (PONTOS)
 #Ponto casa

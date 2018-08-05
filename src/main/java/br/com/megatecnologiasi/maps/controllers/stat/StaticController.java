@@ -98,7 +98,7 @@ public class StaticController {
     }
 
     //enviar todos os elementos para exibiçao no mapa
-    @GetMapping("/maps/map")
+    @GetMapping("/map")
     public String showMap(Model model) {
         model.addAttribute("elements", elementService.getAll());
 
