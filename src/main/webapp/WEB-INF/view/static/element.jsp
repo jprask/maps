@@ -21,7 +21,7 @@
         <div class="container">
             <br>
             <br>
-            <h1 class="header center blue-grey-text text-darken-3">${element.name == null ? "Novo Elemento":element.name}</h1>
+            <h1 class="header center blue-grey-text text-darken-3">${element.name == null ? "Elemento":element.name}</h1>
             <div class="row center">
                 <p class="flow-text blue-grey-text text-darken-3 col s12">
                     Editar Elemento
@@ -45,6 +45,7 @@
             <div class="input-field">
                 <label class="active" for="name">Nome</label>
                 <form:input id="name" path="name"/>
+                <form:errors path="name" cssClass="helper-text red-text"/>
             </div>
 
             <div class="input-field">

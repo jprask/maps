@@ -1,6 +1,7 @@
 package br.com.megatecnologiasi.maps.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="coords")
@@ -13,10 +14,13 @@ public class Coordinate {
     @JoinColumn(name="element_id")
     private MapElement element;
     @Column(name="lat")
+    @NotNull(message="Eh preciso informar a latitude!")
     private Double lat;
     @Column(name="lng")
+    @NotNull(message="Eh preciso informar a longitude!")
     private Double lng;
     @Column(name="marker")
+    @NotNull
     private Boolean marker;
 
 

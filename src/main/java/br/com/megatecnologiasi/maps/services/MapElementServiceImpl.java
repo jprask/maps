@@ -45,7 +45,8 @@ public class MapElementServiceImpl implements MapElementService {
     @Transactional
     public void addCoord(MapElement element, Coordinate coord) {
         element.addCoord(coord);
-        elementDAO.storeElement(element);
+        coord.setElement(element);
+        //elementDAO.storeElement(element);
     }
 
     public MapElementDAO getElementDAO() {

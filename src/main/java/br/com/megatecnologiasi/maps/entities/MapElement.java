@@ -1,11 +1,14 @@
 package br.com.megatecnologiasi.maps.entities;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name="map_elements")
 public class MapElement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -13,6 +16,7 @@ public class MapElement {
     @Column(name="icon")
     private String icon;
     @Column(name="elmt_name")
+    @NotBlank(message="Eh nescessario informar o nome")
     private String name;
     @Column(name="elmt_desc")
     private String desc;

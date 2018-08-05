@@ -7,7 +7,10 @@ import br.com.megatecnologiasi.maps.services.MapElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller("staticController")
 @RequestMapping("/maps")
@@ -46,7 +49,8 @@ public class StaticController {
 
     //Salvar elemento e mostrar a lista de elementos
     @PostMapping("/saveElement")
-    public String saveElement(@ModelAttribute MapElement element, Model model) {
+    public String saveElement(@Valid @ModelAttribute("element") MapElement element, BindingResult result, Model model) {
+        if(result.hasErrors()) return "/static/element";
         elementService.storeElement(element);
 
         return "redirect:/maps/list";
@@ -54,7 +58,7 @@ public class StaticController {
 
     //Deletar elemento e mostrar lista de elementos
     @GetMapping("/deleteElement")
-    public String deleteElement(@RequestParam("elementId") Integer id, Model model) {
+    public String deleteElement(@RequestParam("id") Integer id, Model model) {
         elementService.deleteElement(id);
 
         return "redirect:/maps/list";
@@ -68,7 +72,7 @@ public class StaticController {
         model.addAttribute("coordinate", coordinate);
         model.addAttribute("parentId", coordinate.getElement().getId());
 
-        return "static/coordinate";
+        return "/static/coordinate";
     }
 
     //Criar nova coordenada e mostrar no form, elemento pai pre-selecionado
@@ -78,12 +82,17 @@ public class StaticController {
         model.addAttribute("coordinate", new Coordinate());
         model.addAttribute("parentId", parentId);
 
-        return "static/coordinate";
+        return "/static/coordinate";
     }
 
     //Salvar coordenada e mostrar lista de elementos
     @PostMapping("/saveCoordinate")
-    public String saveCoordinate(@ModelAttribute Coordinate coordinate, Model model) {
+    public String saveCoordinate(@Valid @ModelAttribute("coordinate") Coordinate coordinate, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            model.addAttribute("elements", elementService.getAll());
+            model.addAttribute("parentId", coordinate.getElement().getId());
+            return "/static/coordinate";
+        }
         coordinateService.storeCoord(coordinate);
 
         return "redirect:/maps/list";

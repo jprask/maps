@@ -14,6 +14,7 @@
     <form:input path="icon"/>
     <label>Name</label>
     <form:input path="name"/>
+    <form:errors path="name" cssClass="helper-text"/>
     <label>Description</label>
     <form:input path="desc"/>
     <input type="submit" value="Save" class="Save">

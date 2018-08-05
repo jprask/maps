@@ -52,11 +52,13 @@
             <div class="input-field">
                 <label class="active" for="latitude" >Latitude</label>
                 <form:input id="latitude" path="lat"/> <br/>
+                <form:errors path="lat" cssClass="helper-text red-text"/>
             </div>
 
             <div class="input-field">
                 <label class="active" for="longitude">Longitude</label>
                 <form:input id="longitude" path="lng"/> <br/>
+                <form:errors path="lng" cssClass="helper-text red-text"/>
             </div>
 
             <p>
