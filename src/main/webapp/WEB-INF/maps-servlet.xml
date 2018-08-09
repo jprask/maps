@@ -18,7 +18,14 @@
     <context:component-scan base-package="br.com.megatecnologiasi.maps"/>
 
     <!-- Annotations -->
-    <mvc:annotation-driven conversion-service="idToElement"/>
+    <!--Conversion service para o dropdown da view-->
+    <mvc:annotation-driven conversion-service="idToElement">
+        <!--Converters para a API REST-->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- MVC View Resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

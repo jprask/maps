@@ -46,6 +46,7 @@
                 <form:select path="element" cssClass="browser-default" id="selectParent">
                     <form:options items="${elements}" itemLabel="name" itemValue="id"/>
                 </form:select> <br/>
+                <form:errors path="element" cssClass="helper-text red-text"/>
             </div>
 
 
@@ -63,11 +64,11 @@
 
             <p>
                 <label>
-                    <input type="checkbox" id="renderedBox" checked="checked" />
+                    <input type="checkbox" id="renderedBox" ${coordinate.marker ? "checked=\"checked\"":""} />
                     <span>Marker</span>
                 </label>
             </p>
-            <form:checkbox path="marker" id="hiddenBox" checked="checked"/>
+            <form:checkbox path="marker" id="hiddenBox"/>
             <br>
             <br>
             <%--<input type="submit" value="Save" class="Save">--%>

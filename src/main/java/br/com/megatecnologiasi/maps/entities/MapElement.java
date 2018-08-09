@@ -13,13 +13,18 @@ public class MapElement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
+
     @Column(name="icon")
     private String icon;
+
     @Column(name="elmt_name")
     @NotBlank(message="Eh nescessario informar o nome")
     private String name;
+
     @Column(name="elmt_desc")
     private String desc;
+
+    //FtechType Lazy causa problemas, usando EAGER (consome mais recursos)
     @OneToMany(mappedBy = "element", fetch = FetchType.EAGER)
     private List<Coordinate> coords;
 

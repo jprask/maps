@@ -40,7 +40,7 @@
                             <span class="card-title white-text">
                                 <strong>Elementos</strong>
                             </span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="${pageContext.request.contextPath}/maps/newElement" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">add</i>
                             </a>
                             <p class="grey-text text-lighten-3">
@@ -49,7 +49,7 @@
                             </p>
                         </div>
                         <div class="card-action">
-                            <a class="grey-text text-lighten-3" href="#">Ver Todos</a>
+                            <a class="grey-text text-lighten-3" href="${pageContext.request.contextPath}/maps/list">Ver Todos</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                             <span class="card-title white-text">
                                 <strong>Pontos</strong>
                             </span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="${pageContext.request.contextPath}/maps/newCoordinate?parentId=0" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">add</i>
                             </a>
                             <p class="grey-text text-lighten-3">
@@ -71,7 +71,7 @@
                             </p>
                         </div>
                         <div class="card-action">
-                            <a class="grey-text text-lighten-3" href="#">Ver Todos</a>
+                            <a class="grey-text text-lighten-3" href="${pageContext.request.contextPath}/maps/list">Ver Todos</a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                             <span class="card-title white-text">
                                 <strong>Mapa</strong>
                             </span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="${pageContext.request.contextPath}/maps/map" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">map</i>
                             </a>
                             <p class="grey-text text-lighten-3">
@@ -98,12 +98,5 @@
         </div>
     </main>
     <jsp:include page="/includes/footer.jsp"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems);
-        });
-    </script>
 </body>
 </html>

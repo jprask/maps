@@ -1,14 +1,39 @@
-function makeMarker(latLng, map, icon, name) {
+function makeMarker(lat, lng, map, icon, name) {
     return new google.maps.Marker({
-        position: latLng,
+        position: new google.maps.LatLng(lat, lng),
         map: map,
         label: {
             fontFamily: 'Material Icons',
             fontSize: '24px',
-            text: icon
+            text: (icon == null) ? 'explore':icon
+        },
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: 'red',
+            strokeColor: 'red',
+            scale: 6,
+            strokeWeight: 12
         },
         title: name
     })
+}
+
+function makeInfoWindow(marker, map, element) {
+    let content =
+     `<div class="card-panel deep-purple darken-4">
+        <span class="white-text">
+            ${element.name}
+            <br>
+            ${(element.desc == null) ? 'Nao ah descricao!':element.desc}
+        </span>
+     </div>`;
+    let infoWIndow = new google.maps.InfoWindow({
+        content: content
+    });
+    marker.addListener('click', function() {
+        infoWIndow.open(map, marker);
+    });
+    return infoWIndow;
 }
 
 function makeLine(path, map) {
@@ -23,31 +48,42 @@ function makeLine(path, map) {
 }
 
 function addElement(element, map) {
-    if(element.coordinates.length < 1) return {};
-    if(element.coordinates.length === 1) {
-        if(!element.coordinates[0].marker) return {};
-        return {
-            markers: [
-                makeMarker(element.coordinates[0].latLng, map, element.iconTxt, element.name)
-            ],
-            line: null
+    if(element.coords.length < 1) return {};
+    if(element.coords.length === 1) {
+        if(!element.coords[0].marker) return {};
+        else {
+            let marker = makeMarker(element.coords[0].lat, element.coords[0].lng, map, element.icon, element.name);
+            return {
+                markers: [
+                    marker
+                ],
+                infoWindows: [
+                    makeInfoWindow(marker, map, element)
+                ],
+                line: null
+            }
         }
     }
 
     let ref = {
-        markers: []
+        markers: [],
+        infoWindows: []
     };
 
     let lineCoords = [];
 
-    for(let i = 0; i < element.coordinates.length; i++) {
+    for(let i = 0; i < element.coords.length; i++) {
         lineCoords.push(
-           element.coordinates[i].latLng
+            new google.maps.LatLng(element.coords[i].lat, element.coords[i].lng)
         );
-        if(element.coordinates[i].marker)
-            ref.markers.push(
-                makeMarker(element.coordinates[i].latLng, map, element.iconTxt, element.name)
+
+        if(element.coords[i].marker) {
+            let marker = makeMarker(element.coords[0].lat, element.coords[0].lng, map, element.icon, element.name);
+            ref.markers.push(marker);
+            ref.infoWindows.push(
+                makeInfoWindow(marker, map, element)
             );
+        }
     }
 
     ref.line = makeLine(lineCoords, map);

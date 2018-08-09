@@ -22,7 +22,7 @@
 <jsp:include page="/includes/footer.jsp"/>
 <script src="<c:url value="/assets/js/map.js"/>"></script>
 <script>
-    function initMap() {
+    function drawMap(elements) {
         //LatLngBounds para ajustar o mapa aos pontos exibidos
         var bounds = new google.maps.LatLngBounds();
 
@@ -31,37 +31,37 @@
             zoom: 10,
             center: {lat:0, lng:0}
         });
-
-        var coordinates;
-        var elements = [];
-
-        <c:forEach items="${elements}" var="element">
-            coordinates = [];
-            <c:forEach items="${element.coords}" var="coordinate">
-                coordinates.push({
-                    latLng: new google.maps.LatLng(${coordinate.lat}, ${coordinate.lng}),
-                    marker: ${coordinate.marker}
-                });
-            </c:forEach>
-            elements.push(
-                addElement({
-                    name: '${element.name}',
-                    desc: '${element.desc}',
-                    iconTxt: '${element.icon}', //Validate not null...
-                    coordinates: coordinates
-                }, map)
-            );
-            for(let i = 0; i < coordinates.length; i++)
-                bounds.extend(coordinates[i].latLng);
-        </c:forEach>
-
-        // bounds.extend(myLatLng);
+        //Adicionar elementos
+        for(let i = 0; i < elements.length; i++) {
+            //pelo menos uma coordenada com marker
+            addElement(elements[i], map);
+            let coords = elements[i].coords;
+            //TODO:ajustar apenas se for marker ou linha
+            for(j = 0; j < coords.length; j++) //Para ajustar o mapa aos pontos
+                bounds.extend(new google.maps.LatLng(coords[j].lat, coords[j].lng));
+        }
         map.fitBounds(bounds);
         map.panToBounds(bounds);
     }
+
+    function getElements(callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8080/api', true);
+        xhr.onload = function() {
+            if(this.status = 200) {
+                callback(JSON.parse(this.responseText));
+            }
+        };
+        xhr.onerror = function(){alert('Erro ao receber dados')};
+        xhr.send();
+    }
+
+    function initMap() {
+        getElements(drawMap);
+    }
 </script>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=${}&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZmlqYc6qdj0hx1ADuYShZ0e1DHnZDjgc&callback=initMap">
 </script>
 </body>
 </html>
