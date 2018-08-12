@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,15 +33,15 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m4">
-                    <div class="card large deep-purple darken-4">
+                    <div class="hoverable card large deep-purple darken-3">
                         <div class="card-image">
-                            <img src="https://dixcquypdhb9e.cloudfront.net/wp-content/uploads/2013/07/venue-markers-map.png">
+                            <img src="<c:url value="/assets/img/element.png" />" height="256" width="256">
                         </div>
                         <div class="card-content white-text">
                             <span class="card-title white-text">
                                 <strong>Elementos</strong>
                             </span>
-                            <a href="${pageContext.request.contextPath}/maps/newElement" class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="<c:url value="/maps/newElement" />" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">add</i>
                             </a>
                             <p class="grey-text text-lighten-3">
@@ -49,42 +50,42 @@
                             </p>
                         </div>
                         <div class="card-action">
-                            <a class="grey-text text-lighten-3" href="${pageContext.request.contextPath}/maps/list">Ver Todos</a>
+                            <a class="grey-text text-lighten-3" href="<c:url value="/maps/list" />">Ver Todos</a>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    <div class="card large deep-purple darken-4">
+                    <div class="hoverable card large deep-purple darken-3">
                         <div class="card-image">
-                            <img src="https://dixcquypdhb9e.cloudfront.net/wp-content/uploads/2013/07/venue-markers-map.png">
+                            <img src="<c:url value="/assets/img/coordinate.png" />" height="256" width="256">
                         </div>
                         <div class="card-content white-text">
                             <span class="card-title white-text">
                                 <strong>Pontos</strong>
                             </span>
-                            <a href="${pageContext.request.contextPath}/maps/newCoordinate?parentId=0" class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="<c:url value="/maps/newCoordinate?parentId=0" />" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">add</i>
                             </a>
                             <p class="grey-text text-lighten-3">
-                                Defina um par de coordenadas e associe a um elemento. Voce pode ainda adicionar um marker no local definido.
+                                Defina um par de coordenadas e associe a um elemento. Voce pode ainda adicionar um marker no local.
                                 Pontos que fazem parte do mesmo Elemento sao ligados por uma linha.
                             </p>
                         </div>
                         <div class="card-action">
-                            <a class="grey-text text-lighten-3" href="${pageContext.request.contextPath}/maps/list">Ver Todos</a>
+                            <a class="grey-text text-lighten-3" href="<c:url value="/maps/list" />">Ver Todos</a>
                         </div>
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    <div class="card large deep-purple darken-4">
+                    <div class="hoverable card large deep-purple darken-3">
                         <div class="card-image">
-                            <img src="https://dixcquypdhb9e.cloudfront.net/wp-content/uploads/2013/07/venue-markers-map.png">
+                            <img src="<c:url value="/assets/img/map.png" />" height="256" width="256">
                         </div>
                         <div class="card-content white-text">
                             <span class="card-title white-text">
                                 <strong>Mapa</strong>
                             </span>
-                            <a href="${pageContext.request.contextPath}/maps/map" class="btn-floating halfway-fab waves-effect waves-light red">
+                            <a href="<c:url value="/maps/map" />" class="btn-floating halfway-fab waves-effect waves-light red">
                                 <i class="material-icons">map</i>
                             </a>
                             <p class="grey-text text-lighten-3">

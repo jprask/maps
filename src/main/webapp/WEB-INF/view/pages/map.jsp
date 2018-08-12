@@ -33,31 +33,19 @@
         });
         //Adicionar elementos
         for(let i = 0; i < elements.length; i++) {
-            //pelo menos uma coordenada com marker
             addElement(elements[i], map);
             let coords = elements[i].coords;
-            //TODO:ajustar apenas se for marker ou linha
-            for(j = 0; j < coords.length; j++) //Para ajustar o mapa aos pontos
-                bounds.extend(new google.maps.LatLng(coords[j].lat, coords[j].lng));
+            //ajustar apenas se for marker ou linha
+            if(coords.length > 1 || coords.length === 1 && coords[0].marker)
+                for(j = 0; j < coords.length; j++)
+                    bounds.extend(new google.maps.LatLng(coords[j].lat, coords[j].lng));
         }
         map.fitBounds(bounds);
         map.panToBounds(bounds);
     }
-
-    function getElements(callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:8080/api', true);
-        xhr.onload = function() {
-            if(this.status = 200) {
-                callback(JSON.parse(this.responseText));
-            }
-        };
-        xhr.onerror = function(){alert('Erro ao receber dados')};
-        xhr.send();
-    }
-
+    //wrapper: Buscar elementos via AJAX e desenhar o mapa
     function initMap() {
-        getElements(drawMap);
+        getElements(drawMap, '<c:url value="/api" />');
     }
 </script>
 <script async defer

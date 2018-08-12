@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+//Nao nescessita @ResponseBody
 @RestController("apiController")
 @RequestMapping("/api")
 public class EntitiesRestController {

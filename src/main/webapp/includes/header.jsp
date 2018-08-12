@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
@@ -7,21 +8,21 @@
 <body>
     <nav class="deep-purple darken-4" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container white-text" href="${pageContext.request.contextPath}/index.jsp" class="right brand-logo">Maps App</a>
+            <a id="logo-container white-text" href="<c:url value="/" />" class="right brand-logo">Maps App</a>
             <ul class="left hide-on-med-and-down">
                 <li>
-                    <a href="${pageContext.request.contextPath}/maps/map">Mapa</a>
+                    <a href="<c:url value="/maps/map" />">Mapa</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/maps/list">Elementos</a>
+                    <a href="<c:url value="/maps/list" />">Elementos</a>
                 </li>
             </ul>
             <ul id="nav-mobile" class="sidenav">
                 <li>
-                    <a href="${pageContext.request.contextPath}/static/map">Mapa</a>
+                    <a href="<c:url value="/maps/map" />">Mapa</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/static/list">Elementos</a>
+                    <a href="<c:url value="/maps/list" />">Elementos</a>
                 </li>
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger">

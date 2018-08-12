@@ -28,7 +28,7 @@
                     Lista de elementos cadastrados
                 </p>
                 <br>
-                <a href="${pageContext.request.contextPath}/maps/newElement" class="waves-effect btn-large deep-purple darken-3">Novo Elemento</a>
+                <a href="<c:url value="/maps/newElement"/>" class="waves-effect btn-large deep-purple darken-3">Novo Elemento</a>
             </div>
             <br>
             <br>
@@ -57,10 +57,10 @@
                                         </p>
                                     </div>
                                     <div class="card-action">
-                                        <a href="${pageContext.request.contextPath}/maps/viewCoordinate?id=${coord.id}">
+                                        <a href="<c:url value="/maps/viewCoordinate?id=${coord.id}"/>">
                                             <i class="material-icons white-text">edit</i>
                                         </a>
-                                        <a href="${pageContext.request.contextPath}/maps/deleteCoordinate?id=${coord.id}">
+                                        <a href="<c:url value="/maps/deleteCoordinate?id=${coord.id}"/>">
                                             <i class="material-icons white-text">delete</i>
                                         </a>
                                     </div>
@@ -69,13 +69,13 @@
                         </c:forEach>
                     </div>
                     <ul class="secondary-content">
-                        <a href="${pageContext.request.contextPath}/maps/viewElement?id=${element.id}">
+                        <a href="<c:url value="/maps/viewElement?id=${element.id}"/>">
                             <i class="material-icons">edit</i>
                         </a>
-                        <a href="${pageContext.request.contextPath}/maps/deleteElement?id=${element.id}">
+                        <a href="<c:url value="/maps/deleteElement?id=${element.id}"/>">
                             <i class="material-icons">delete</i>
                         </a>
-                        <a href="${pageContext.request.contextPath}/maps/newCoordinate?parentId=${element.id}">
+                        <a href="<c:url value="/maps/newCoordinate?parentId=${element.id}" />">
                             <i class="material-icons">add_circle</i>
                         </a>
                     </ul>
@@ -86,7 +86,6 @@
     </div>
     <jsp:include page="/includes/footer.jsp"/>
 </main>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>--%>
 </body>
 </html>
 

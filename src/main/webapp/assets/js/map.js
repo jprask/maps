@@ -1,3 +1,15 @@
+function getElements(callback, query) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', query, true);
+    xhr.onload = function() {
+        if(this.status = 200) {
+            callback(JSON.parse(this.responseText));
+        }
+    };
+    xhr.onerror = function(){alert('Erro ao receber dados')};
+    xhr.send();
+}
+
 function makeMarker(lat, lng, map, icon, name) {
     return new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
@@ -20,13 +32,15 @@ function makeMarker(lat, lng, map, icon, name) {
 
 function makeInfoWindow(marker, map, element) {
     let content =
-     `<div class="card-panel deep-purple darken-4">
-        <span class="white-text">
-            ${element.name}
+        `<div class="container">
+            <h2 class="flow-text">
+                ${element.name}
+            </h2>
             <br>
-            ${(element.desc == null) ? 'Nao ah descricao!':element.desc}
-        </span>
-     </div>`;
+            <p>
+                ${(element.desc == null) ? 'Nao ah descricao!':element.desc}
+            </p>
+        </div>`;
     let infoWIndow = new google.maps.InfoWindow({
         content: content
     });
@@ -78,7 +92,7 @@ function addElement(element, map) {
         );
 
         if(element.coords[i].marker) {
-            let marker = makeMarker(element.coords[0].lat, element.coords[0].lng, map, element.icon, element.name);
+            let marker = makeMarker(element.coords[i].lat, element.coords[i].lng, map, element.icon, element.name);
             ref.markers.push(marker);
             ref.infoWindows.push(
                 makeInfoWindow(marker, map, element)
