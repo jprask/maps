@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+/**
+* Para mapear IDs de elementos (strings) para elementos (no form de coordenadas)
+* */
 @Component
 public class IdToElementConverter implements Converter<String, MapElement> {
 

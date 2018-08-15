@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -38,9 +39,15 @@
             <form:hidden id="hiddenId" path="id"/>
 
             <div class="input-field">
-                <label class="active" for="icon">Icone</label>
-                <form:input id="icon" path="icon"/>
+                <a id="icons-dropdown-trigger" class="dropdown-trigger btn deep-purple darken-3" data-target="icons-dropdown">
+                    ${element.icon == null ? "Icone":"<i class=\"material-icons\">".concat(element.icon).concat("</i>")}
+                </a>
+                <ul id='icons-dropdown' class='dropdown-content'>
+                </ul>
+                <form:hidden id="icon" path="icon"/>
             </div>
+
+            <br>
 
             <div class="input-field">
                 <label class="active" for="name">Nome</label>
@@ -50,7 +57,7 @@
 
             <div class="input-field">
                 <label class="active" for="desc">Descriçao</label>
-                <form:textarea id="desc" path="desc"/>
+                <form:textarea id="desc" path="desc" cssClass="materialize-textarea"/>
             </div>
             <br>
             <br>
@@ -64,5 +71,37 @@
 
     <jsp:include page="/includes/footer.jsp"/>
 </main>
+
+<script>
+    //Inicializar dropdown (icones)
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, {});
+    });
+    //Selecionar item e exibir (no botao)
+    function setIcon(icon) {
+        document.getElementById('icon').value = icon;
+        document.getElementById('icons-dropdown-trigger').innerHTML = '<i class=\"material-icons\">'+icon+'</i>';
+    }
+    //icones oferecidos
+    let material_icons = ['360','add_location','atm','beenhere','category','compass_calibration','departure_board','directions','directions_bike','directions_boat','directions_bus','directions_car','directions_railway','directions_run','directions_subway','directions_transit','directions_walk','edit_attributes','edit_location','ev_station','fastfood','flight','hotel','layers','layers_clear','local_activity','local_airport','local_atm','local_bar','local_cafe','local_car_wash','local_convenience_store','local_dining','local_drink','local_florist','local_gas_station','local_grocery_store','local_hospital','local_hotel','local_laundry_service','local_library','local_mall','local_movies','local_offer','local_parking','local_pharmacy','local_phone','local_pizza','local_play','local_post_office','local_printshop','local_see','local_shipping','local_taxi','map','money','my_location','navigation','near_me','not_listed_location','person_pin','person_pin_circle','pin_drop','place','rate_review','restaurant','restaurant_menu','satellite','store_mall_directory','streetview','subway','terrain','traffic','train','tram','transfer_within_a_station','transit_enterexit','trip_origin','zoom_out_map'];
+    //Criar dropdown dinamicamente
+    for (i = 0; i < material_icons.length; i++) {
+        let icon = document.createElement('i');
+        icon.className = 'material-icons';
+        icon.innerText = material_icons[i];
+        //Embrulhar em botao para ficar responsivo
+        let a = document.createElement('a');
+        a.className = 'waves-effect waves-light btn-flat';
+        a.appendChild(icon);
+        a.onclick = function () {
+            setIcon(this.firstChild.innerText);
+        };
+        let li = document.createElement('li');
+        li.appendChild(a);
+        document.getElementById('icons-dropdown').appendChild(li);
+    }
+</script>
+
 </body>
 </html>

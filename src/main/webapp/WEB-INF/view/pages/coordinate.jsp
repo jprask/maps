@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -90,6 +89,7 @@
                     <span>Marker</span>
                 </label>
             </p>
+            <%--Nao eh desenhado--%>
             <form:checkbox path="marker" id="hiddenBox"/>
             <br>
             <br>
@@ -106,7 +106,7 @@
 </main>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>--%>
 <script src="<c:url value="/assets/js/geocoding.js" />"></script>
 
 <script>
@@ -119,6 +119,7 @@
     //inicializar modal do geocoding
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
+        //Eventos para tratar a tecla ENTER
         var instances = M.Modal.init(elems, {});
     });
     document.getElementById('geocoding_lookup').addEventListener('click', function() {

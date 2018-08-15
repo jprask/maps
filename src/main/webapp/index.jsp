@@ -21,7 +21,7 @@
                 <h1 class="header center blue-grey-text text-darken-3">Bem-Vindo</h1>
                 <div class="row center">
                     <p class="flow-text blue-grey-text text-darken-3 col s12">
-                        Nesta aplicação, você pode definir Entidades, que são então mostradas no mapa. Entidades representam um ponto ou grupo
+                        Nesta aplicação, você pode definir Entidades, que são mostradas no mapa. Entidades representam um ponto ou grupo
                         de pontos, no caso de um múltiplos pontos, eles são ligados por um traço formando uma rede. Pontos podem ser
                         representados no mapa atraves de um marker, que pode ser escolhido pelo usuário.
                     </p>

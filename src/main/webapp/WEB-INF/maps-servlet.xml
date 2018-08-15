@@ -20,7 +20,7 @@
     <!-- Annotations -->
     <!--Conversion service para o dropdown da view-->
     <mvc:annotation-driven conversion-service="idToElement">
-        <!--Converters para a API REST-->
+        <!--REST Converters-->
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
@@ -47,7 +47,7 @@
 
     <!-- Hibernate -->
         <!-- Data Source -->
-        <bean id="orderDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <bean id="mapsDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
             <property name="driverClass" value="com.mysql.jdbc.Driver"/>
             <property name="jdbcUrl" value="jdbc:mysql://localhost/mega"/>
             <property name="user" value="root"/>
@@ -61,7 +61,7 @@
 
         <!-- SessionFactory -->
         <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-            <property name="dataSource" ref="orderDataSource"/>
+            <property name="dataSource" ref="mapsDataSource"/>
             <property name="packagesToScan" value="br.com.megatecnologiasi.maps.entities"/>
             <property name="hibernateProperties">
                 <props>

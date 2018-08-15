@@ -53,10 +53,12 @@ public class MapsController {
     //Salvar elemento e mostrar a lista de elementos
     @PostMapping("/saveElement")
     public String saveElement(@Valid @ModelAttribute("element") MapElement element, BindingResult result, Model model) {
-        if(result.hasErrors()) return "/static/element";
         //caso algum campo nao for preenchido transformar string vazia em null
         if(element.getIcon().equals("")) element.setIcon(null);
         if(element.getDesc().equals("")) element.setDesc(null);
+        if(element.getName().equals("")) element.setName(null);
+        //Caso falhar a validacao, exibir o form novamente
+        if(result.hasErrors()) return "/pages/element";
         elementService.storeElement(element);
 
         return "redirect:/maps/list";
